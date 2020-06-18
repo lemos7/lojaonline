@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "686830379994",
+    "firebase_url": "https://lojaflutter-d1c16.firebaseio.com",
+    "project_id": "lojaflutter-d1c16",
+    "storage_bucket": "lojaflutter-d1c16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686830379994:android:14c8325c29bd41793396e3",
+        "android_client_info": {
+          "package_name": "com.lemos.lojaonline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686830379994-prac1t36n46v4s857qdt6v13atscgru5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyPs8QeTjYWnM2lWxxaqYoQLNWGeC_O_o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686830379994-prac1t36n46v4s857qdt6v13atscgru5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
