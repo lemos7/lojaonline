@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'App loja',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        primaryColor: Color.fromARGB(255, 4, 125, 141)
+        primaryColor:  Color.fromARGB(255, 117, 40, 212),
       ),
       debugShowCheckedModeBanner: false,
       home: HomeScreen()

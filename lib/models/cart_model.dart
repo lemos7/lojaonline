@@ -14,7 +14,7 @@ class CartModel extends Model {
   static CartModel of(BuildContext context) =>
   ScopedModel.of<CartModel>(context);
 
-
+  bool isLoading = false;
 
   void addCartItem(CartProduct cartProduct) {
     products.add(cartProduct);
