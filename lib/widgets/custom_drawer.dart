@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lojaonline/models/user_model.dart';
+import 'package:lojaonline/screens/login_screen.dart';
 import 'package:lojaonline/tiles/drawer_tile.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class CustomDrawer extends StatelessWidget {
   final PageController pageController;
@@ -43,11 +46,13 @@ class CustomDrawer extends StatelessWidget {
                     Positioned(
                       left: 0.0,
                       bottom: 0.0,
-                      child: Column(
+                      child: ScopedModelDescendant<UserModel>(
+                        builder: (context, child, model){
+                          return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "Olá,",
+                            "Olá, ${!model.isLoggedIn() ? "" : model.userData["name"]}",
                             style: TextStyle(
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold,
@@ -55,16 +60,27 @@ class CustomDrawer extends StatelessWidget {
                           ),
                           GestureDetector(
                             child: Text(
-                              "Entre ou cadastre-se",
+                              !model.isLoggedIn() ?
+                              "Entre ou cadastre-se"
+                              : "Sair",
                               style: TextStyle(
-                                  color: Colors.white,
+                                  color: Colors.yellowAccent,
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold),
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              if(!model.isLoggedIn())
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context)=>LoginScreen())
+                              );
+                              else
+                              model.sigOut();
+                            },
                           ),
                         ],
-                      ),
+                      );
+                        }
+                        )
                     ),
                   ],
                 ),
