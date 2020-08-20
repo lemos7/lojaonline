@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lojaonline/datas/cart_produt.dart';
 import 'package:lojaonline/datas/product_data.dart';
+import 'package:lojaonline/models/cart_model.dart';
 
 class CartTile extends StatelessWidget {
 
@@ -11,6 +12,7 @@ class CartTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CartModel.of(context).updatePrice();
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: cartProduct.productData == null ?
@@ -60,22 +62,31 @@ class CartTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
 
-                  IconButton(icon: Icon(Icons.remove,), 
-                  onPressed: cartProduct.quantity < 1 ? 
-                  (){} : null
-
+                  IconButton(
+                  icon: Icon(Icons.remove), 
+                  color: Theme.of(context).primaryColor,
+                  onPressed: cartProduct.quantity > 1 ? 
+                  (){
+                    CartModel.of(context).decProduct(cartProduct);
+                  } : null
+                   
                   ),
                   Text(cartProduct.quantity.toString()),
 
-                  IconButton(icon: Icon(Icons.add, color: Theme.of(context).primaryColor,), 
-                  
-                  onPressed: (){}
+                  IconButton(
+                  icon: Icon(Icons.add),
+                  color: Theme.of(context).primaryColor, 
+                  onPressed: (){
+                     CartModel.of(context).incProduct(cartProduct);
+                  }
                   ),
 
                   FlatButton(
                      child: Text("Remover"),
                      textColor: Colors.grey[500],
-                    onPressed: (){},
+                    onPressed: (){
+                      CartModel.of(context).removeCarItem(cartProduct);
+                    },
                     )
                 ],
               )
