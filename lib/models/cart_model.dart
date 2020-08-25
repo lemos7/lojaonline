@@ -16,7 +16,7 @@ class CartModel extends Model {
   }
 
   String cupomCode;
-  int discoutPercentage = 0;
+  int discountPercentage = 0;
 
   static CartModel of(BuildContext context) =>
   ScopedModel.of<CartModel>(context);
@@ -78,7 +78,7 @@ class CartModel extends Model {
 
   void setCupom(String cupomCode, int discountPercentage){
     this.cupomCode = cupomCode;
-    this.discoutPercentage = discoutPercentage;
+    this.discountPercentage = discountPercentage;
   }
 
   double getProductsPrice(){
@@ -91,7 +91,7 @@ class CartModel extends Model {
   }
 
   double getDiscount(){
-    return getProductsPrice() * discoutPercentage/100;
+    return getProductsPrice() * discountPercentage/100;
     
   }
 
@@ -102,5 +102,53 @@ class CartModel extends Model {
   void updatePrice(){
     notifyListeners();
   }
+
+  Future<String> finishOrder() async {
+    if(products.length == 0) return null;
+
+    isLoading = true;
+    notifyListeners();
+
+    double productsPrice = getProductsPrice();
+    double shipPrice = getShipPrice();
+    double discount = getDiscount();
+
+    DocumentReference refOrder = await Firestore.instance.collection("orders").add(
+      {
+        "clientId": user.firebaseUser.uid,
+        "products": products.map((cartProduct)=>cartProduct.toMap()).toList(),
+        "shipPrice": shipPrice,
+        "productsPrice": productsPrice,
+        "discount": discount,
+        "totalPrice": productsPrice - discount + shipPrice,
+        "status": 1
+      }
+    );
+
+    await Firestore.instance.collection("users").document(user.firebaseUser.uid)
+      .collection("orders").document(refOrder.documentID).setData(
+      {
+        "orderId": refOrder.documentID
+      }
+    );
+
+    QuerySnapshot query = await Firestore.instance.collection("users").document(user.firebaseUser.uid)
+      .collection("cart").getDocuments();
+
+    for(DocumentSnapshot doc in query.documents){
+      doc.reference.delete();
+    }
+
+    products.clear();
+
+    cupomCode = null;
+    discountPercentage = 0;
+
+    isLoading = false;
+    notifyListeners();
+
+    return refOrder.documentID;
+  }
+
 
 }

@@ -3,7 +3,7 @@ import 'package:lojaonline/models/cart_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 class CartPrice extends StatelessWidget {
 
-  VoidCallback buy;
+  final VoidCallback buy;
   CartPrice(this.buy);
 
   @override
@@ -56,7 +56,7 @@ class CartPrice extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Total:", style: TextStyle(fontWeight: FontWeight.w500)),
-                  Text("R\$ ${(price + ship - discount).toStringAsFixed(3)}", style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 17))
+                  Text("R\$ ${(price + ship - discount).toStringAsFixed(2)}", style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 17))
                 ],
               ),
               SizedBox(height:12),
@@ -64,7 +64,7 @@ class CartPrice extends StatelessWidget {
                 child: Text("Finalizar Pedido"),
                 textColor: Colors.white,
                 color: Theme.of(context).primaryColor,
-                onPressed: (){},
+                onPressed: buy,
                 )
             ],
           );

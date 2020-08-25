@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lojaonline/models/cart_model.dart';
 import 'package:lojaonline/models/user_model.dart';
 import 'package:lojaonline/screens/login_screen.dart';
+import 'package:lojaonline/screens/order_screen.dart';
 import 'package:lojaonline/tiles/cart_tile.dart';
 import 'package:lojaonline/widgets/cart_price.dart';
 import 'package:lojaonline/widgets/discout_card.dart';
@@ -50,13 +51,33 @@ class CartScreen extends StatelessWidget {
           );
         }
         else{
-          return productsList(context);
+          return ListView(
+      children: [
+        Column(
+          children:
+           model.products.map(
+             (product){
+               return CartTile(product);
+             }
+           ).toList(),
+        ),
+        DiscountCard(),
+        ShipCard(),
+        CartPrice(()async{
+          String orderId = await model.finishOrder();
+         if(orderId != null)
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context)=> OrderScreen(orderId))
+          );
+        })
+      ],
+    );
         }
       }),
     );
   }
 
-  Widget productsList(BuildContext context){
+  /*Widget productsList(BuildContext context){
     return ScopedModelDescendant<CartModel>(
       builder: (context,child, model){
         return  ListView(
@@ -71,13 +92,19 @@ class CartScreen extends StatelessWidget {
         ),
         DiscountCard(),
         ShipCard(),
-        CartPrice((){})
+        CartPrice(()async{
+          String orderId = await model.finishOrder();
+         if(orderId != null)
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context)=> OrderScreen(orderId))
+          );
+        })
       ],
     );
       }
       );
    
-  }
+  }*/
 
 
   //Tela para caso não estiver logado

@@ -55,7 +55,7 @@ class CartTile extends StatelessWidget {
             children: [
               Text(cartProduct.productData.title, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17),),
 
-              Text("R\ ${cartProduct.productData.price.toStringAsFixed(3)}", 
+              Text("R\ ${cartProduct.productData.price.toStringAsFixed(2)}", 
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Theme.of(context).primaryColor)),
 
               Row(
