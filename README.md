@@ -1,16 +1,11 @@
 # lojaonline
 
-A new Flutter application.
+Este aplicativo tem como objetivo ser usado como portifólio e para ajudar a comunidade a aprender.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Não é possivel executar exatamente este projeto localmente, pois depende de arquivos do firebase com seu próprio banco de dados
+mas é possível testar e consultar os códigos do aplicativo no fazendo o download do projeto. 
+Para instalar o aplicativo em questão em seu smartphone pessoal ou no emulador, basta fazer o download do projeto e mover o arquivo app-release.apk para seu smartphone pessoal ou emulador e executa-lo.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
